@@ -1,6 +1,6 @@
-=== Page Excerpt Widget ===
+=== Append Link on Copy ===
 Contributors: JonathanMH
-Donate link: http://example.com/
+Donate link: http://jonathanmh.com/wordpress-plugin-append-link-on-copy/
 Tags: append link, copyright, js, javscript, add text to copy and paste, copy 'n paste, copy & paste
 Requires at least: 2.8
 Tested up to: 3.5
@@ -18,9 +18,11 @@ If a visitor copies any kind of text from the website, a link to the page is app
 
 right now you can:
 
-* specify the Read more link text, default: 
+* specify the Read more link text, default: Read more at:
 * how many <br /> tags should be inserted below the copied text and the link or copyright notice
 * specify if you want the current page title included
+* make every copy link to the main page
+* decide if you want the site title to be appended
 * see previews of HTML and text versions of the copied text and link
 
 I plan to increase the functionality with:
@@ -41,14 +43,16 @@ Yes. Internet Explorer is not a browser.
 
 == Screenshots ==
 
-1. This shows the backend and the options the user has.
-2. This shows the copied text in an HTML capable destination
-3. This shows the copied text in a plain text capable destination
+1. This shows the backend and the options the user has
+2. This shows the preview area on the options page
+3. This shows a user copying text
+4. This shows the copied text in an HTML capable destination (gmail)
+5. This shows the copied text in a plain text capable destination (MacVim)
 
 == Changelog ==
 
 = 0.1 =
-2012-7-11
+2013-1-25
 
 Initial release
 
@@ -57,3 +61,6 @@ Initial release
 
 == Suggestions welcome ==
 
+project on github: https://github.com/JonathanMH/Append-Link-on-Copy
+
+Contributer wanted for GPLv3 support
