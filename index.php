@@ -6,7 +6,7 @@
 	Version: 0.1
 	Author: Jonathan M. Hethey
 	Author URI: http://jonathanmh.com
-	License: GPL3
+	License: GPLv3
 	*/
 
 if ( ! class_exists( 'Appendlink' ) ){

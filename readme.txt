@@ -56,3 +56,4 @@ Initial release
 * decide if the page title should be included in the link
 
 == Suggestions welcome ==
+
