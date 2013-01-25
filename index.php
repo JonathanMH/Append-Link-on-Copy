@@ -35,6 +35,7 @@ class Appendlink {
 		if( !isset($options['prepend_break']) ) $options['prepend_break'] = 2;
 		if( !isset($options['use_title']) ) $options['use_title'] = 'false';
 		if( !isset($options['add_site_name']) ) $options['add_site_name'] = 'true';
+		if( !isset($options['always_link_site']) ) $options['always_link_site'] = 'false';
 		$this->options = $options;
 	}
 	
@@ -50,7 +51,7 @@ class Appendlink {
 		echo '</pre>';
 		*/
 		
-		$options = get_option('append_link_on_copy_options');
+		$options = $this->options;
 		
 		$params = 	array(
 			  'read_more'			=> $options['readmore']
@@ -58,6 +59,8 @@ class Appendlink {
 			, 'use_title'			=> $options['use_title']
 			, 'add_site_name'		=> $options['add_site_name']
 			, 'site_name'			=> get_bloginfo('name')
+			, 'site_url'			=> get_bloginfo('url')
+			, 'always_link_site'	=> $options['always_link_site']
 		);
 		
 		if ($options['use_title'] === 'true') {
@@ -120,7 +123,7 @@ class Appendlink {
 		
 		add_settings_field(
 			'add_site_name'
-			, "add the site name to the link"
+			, "Add the site name after link"
 			, array( &$this, 'field_add_site_name' )
 			, 'append_link_on_copy_options'
 			, 'main'
@@ -135,7 +138,15 @@ class Appendlink {
 		);
 		
 		add_settings_field(
-			'use_title'
+			'always_link_site'
+			, "Always link to main site, instead of page/post"
+			, array( &$this, 'field_always_link_site' )
+			, 'append_link_on_copy_options'
+			, 'main'
+		);
+		
+		add_settings_field(
+			'prepend_break'
 			, "How many &lt;br /&gt; tags should be inserted before the link? (default: 2)"
 			, array( &$this, 'field_prepend_break' )
 			, 'append_link_on_copy_options'
@@ -148,17 +159,57 @@ class Appendlink {
 	}
 	
 	function section_preview() {
+		echo '<b>Notice:</b> Even though the text preview may not show the link, many web systems automatically link everything starting with http://, also everything copied from the front page, will not append the site title';
 		$sample_quote = "Hi, I'm <a href=\"http://jonathanmh.com/\">Jonathan M. Hethey</a> and very happy to provide you with this plugin.";
+		$sample_page_link = 'http://jonathanmh.com/wordpress-plugin-append-link-on-copy/';
+		$sample_site_link = 'http://jonathanmh.com/';
+		$sample_site_name = 'JonathanMH.com';
 		
-		$link;
 		
-		if ()
+		if ($this->options['always_link_site'] == true) {
+			$link = '<a href="' . $sample_site_link . '">';
+		}
+		else {
+			$link = '<a href="' . $sample_page_link . '">';
+		}
+		
+		if ($this->options['use_title'] == 'true'){
+			$link .= 'Append Link on Copy';
+		}
+		else {
+			if ($this->options['always_link_site'] == true){
+				$link .= $sample_site_link;
+			}
+			else {
+				$link .= $sample_page_link;
+			}
+		}
+		
+		if ($this->options['add_site_name'] == 'true'){
+			$link .= ' | ' . $sample_site_name;	
+		}
+		
+		$link .= '</a>';
 		
 		echo '<h4>' . 'Quoted text: </h4>';
 		echo "<blockquote>";
 		echo $sample_quote;
 		echo "</blockquote>";
+		echo '<p>sample page link: <b>' . $sample_page_link . '</b></p>';
+		echo '<p>sample site link: <b>' . $sample_site_link . '</b></p>';
+		echo '<p>sample site name: <b>' . $sample_site_name . '</b></p>';
 		echo '<h4>' . 'HTML preview' . '</h4>';
+		echo "<blockquote>";
+		echo $sample_quote;
+		for ($i = 0; $i < $this->options['prepend_break']; $i++){
+			echo '<br />';
+		}
+		
+		echo
+			$this->options['readmore']
+			. ' ' . $link;
+		echo "</blockquote>";
+		echo '<h4>' . 'Text preview' . '</h4>';
 		echo "<blockquote>";
 		echo strip_tags($sample_quote);
 		for ($i = 0; $i < $this->options['prepend_break']; $i++){
@@ -167,12 +218,13 @@ class Appendlink {
 		
 		echo
 			$this->options['readmore']
-			. $this->options['']
+			. ' ' . strip_tags($link);
 		echo "</blockquote>";
-		echo var_dump($this->options['prepend_break']);
+		/* debugging for options
 		echo '<pre>';
 		var_dump($this->options);
 		echo '</pre>';
+*/
 	}
 	
 	function field_readmore() {
@@ -208,6 +260,13 @@ class Appendlink {
 	echo  '<input type="hidden" name="append_link_on_copy_options[use_title]" value="false" />'
 		. '<label><input type="checkbox" name="append_link_on_copy_options[use_title]" value="true"'
 		. ($this->options['use_title'] != 'false' ? ' checked="checked"' : '')
+		.' />';
+	}
+	
+	function field_always_link_site() {
+		echo  '<input type="hidden" name="append_link_on_copy_options[always_link_site]" value="false" />'
+		. '<label><input type="checkbox" name="append_link_on_copy_options[always_link_site]" value="true"'
+		. ($this->options['always_link_site'] != 'false' ? ' checked="checked"' : '')
 		.' />';
 	}
     

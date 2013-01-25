@@ -21,14 +21,24 @@ function addLink() {
 		link_name += ' | ' + append_link.site_name;
 	}
 	
+	if (append_link.always_link_site == true) {
+		link_url = append_link.site_url;
+	}
+	else {
+		link_url = document.URL;
+	}
+	
 	var pagelink =
 		linebreaks
 		+ ' ' + append_link.read_more + ' '
 		+ "<a href='"
-		+ document.URL+"'>"
+		+ link_url +"'>"
 		+ link_name+"</a>";
 	
-	
+	/* debugging
+	console.log(pagelink);
+	console.log(append_link);
+	*/
 	var copytext = selection + pagelink;
 	var newdiv = document.createElement('div');
 	newdiv.style.position='absolute';

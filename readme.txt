@@ -21,10 +21,12 @@ right now you can:
 * specify the Read more link text, default: 
 * how many <br /> tags should be inserted below the copied text and the link or copyright notice
 * specify if you want the current page title included
+* see previews of HTML and text versions of the copied text and link
 
 I plan to increase the functionality with:
 
 * some internationalisation
+* if somebody wants to contribute legacy IE support I'll include that
 
 == Installation ==
 
@@ -39,8 +41,9 @@ Yes. Internet Explorer is not a browser.
 
 == Screenshots ==
 
-1. This shows the widget in the backend and the options the user has.
-2. This shows the output of the widget in the twenty eleven theme.
+1. This shows the backend and the options the user has.
+2. This shows the copied text in an HTML capable destination
+3. This shows the copied text in a plain text capable destination
 
 == Changelog ==
 
