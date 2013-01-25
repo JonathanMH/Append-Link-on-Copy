@@ -35,6 +35,7 @@ class Appendlink {
 		if( !isset($options['prepend_break']) ) $options['prepend_break'] = 2;
 		if( !isset($options['use_title']) ) $options['use_title'] = 'false';
 		if( !isset($options['add_site_name']) ) $options['add_site_name'] = 'true';
+		$this->options = $options;
 	}
 	
 	function load_script() {
@@ -53,7 +54,7 @@ class Appendlink {
 		
 		$params = 	array(
 			  'read_more'			=> $options['readmore']
-			, 'prepend_break'		=> 2
+			, 'prepend_break'		=> $options['prepend_break']
 			, 'use_title'			=> $options['use_title']
 			, 'add_site_name'		=> $options['add_site_name']
 			, 'site_name'			=> get_bloginfo('name')
@@ -132,13 +133,43 @@ class Appendlink {
 			, 'append_link_on_copy_options'
 			, 'main'
 		);
+		
+		add_settings_field(
+			'use_title'
+			, "How many &lt;br /&gt; tags should be inserted before the link? (default: 2)"
+			, array( &$this, 'field_prepend_break' )
+			, 'append_link_on_copy_options'
+			, 'main'
+		);
 	}
 	
 	function section_main() {
-		echo __('Main Options');
+		echo __('Change the appearance and contents of the appended link.');
 	}
 	
 	function section_preview() {
+		$sample_quote = "Hi, I'm <a href=\"http://jonathanmh.com/\">Jonathan M. Hethey</a> and very happy to provide you with this plugin.";
+		
+		$link;
+		
+		if ()
+		
+		echo '<h4>' . 'Quoted text: </h4>';
+		echo "<blockquote>";
+		echo $sample_quote;
+		echo "</blockquote>";
+		echo '<h4>' . 'HTML preview' . '</h4>';
+		echo "<blockquote>";
+		echo strip_tags($sample_quote);
+		for ($i = 0; $i < $this->options['prepend_break']; $i++){
+			echo '<br />';
+		}
+		
+		echo
+			$this->options['readmore']
+			. $this->options['']
+		echo "</blockquote>";
+		echo var_dump($this->options['prepend_break']);
 		echo '<pre>';
 		var_dump($this->options);
 		echo '</pre>';
@@ -153,11 +184,17 @@ class Appendlink {
 			. '" size="40" type="text" value="'
 			. $this->options['readmore']
 			. '" />';
-		
 	}
 	
-	function field_breaks() {
-	
+	function field_prepend_break() {
+		echo
+			'<input id='
+			. 'append_link_on_copy_options[prepend_break]'
+			. '" name="'
+			. 'append_link_on_copy_options[prepend_break]'
+			. '" size="40" type="text" value="'
+			. $this->options['prepend_break']
+			. '" />';
 	}
 	
 	function field_add_site_name() {
@@ -180,9 +217,11 @@ class Appendlink {
     }
     
     function settings_validate( $input ) {
-		//$newinput['readmore'] = trim($input['readmore']);
-		//$newinput['prepend_break'] = trim($input['prepend_break']);
 		$newinput = $input;
+		$newinput['readmore'] = strip_tags($input['readmore']);
+		$newinput['prepend_break'] = (integer) $input['prepend_break'];
+		//$newinput['prepend_break'] = trim($input['prepend_break']);
+		
 		return $newinput;
 	}
 
