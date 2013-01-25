@@ -1,6 +1,5 @@
 // original function by c. bavota at: http://bavotasan.com/2010/add-a-copyright-notice-to-copied-text/
 function addLink() {
-	console.log(append_link);
 	var body_element = document.getElementsByTagName('body')[0];
 	var selection;
 	selection = window.getSelection();
@@ -29,7 +28,6 @@ function addLink() {
 		+ document.URL+"'>"
 		+ link_name+"</a>";
 	
-	console.log(pagelink);
 	
 	var copytext = selection + pagelink;
 	var newdiv = document.createElement('div');
