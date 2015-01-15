@@ -5,42 +5,39 @@ function addLink() {
 	selection = window.getSelection();
 	var linebreaks = '';
 	var link_name;
-	
+
+
 	for (i = 0; i < append_link.prepend_break; i++) {
 		linebreaks = linebreaks + '<br />';
 	}
-	
+
 	if (append_link.use_title == 'true') {
 		link_name = append_link.page_title;
 	}
 	else {
 		link_name = document.URL
 	}
-	
+
 	if (append_link.add_site_name == 'true') {
 		link_name += ' | ' + append_link.site_name;
 	}
-	
+
 	if (append_link.always_link_site == true) {
 		link_url = append_link.site_url;
 	}
 	else {
 		link_url = document.URL;
 	}
-	
+
 	var pagelink =
 		linebreaks
-		+ ' ' + append_link.read_more + ' '
-		+ "<a href='"
-		+ link_url +"'>"
-		+ link_name+"</a>";
-	
-	/* debugging
-	console.log(pagelink);
-	console.log(append_link);
-	*/
+		+ ' ' + append_link.read_more + ' ';
+
+	pagelink = pagelink.replace('%link%', ' ' + link_url + ' ');
+
 	var copytext = selection + pagelink;
 	var newdiv = document.createElement('div');
+
 	newdiv.style.position='absolute';
 	newdiv.style.left='-99999px';
 	body_element.appendChild(newdiv);

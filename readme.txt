@@ -3,7 +3,7 @@ Contributors: JonathanMH
 Donate link: http://jonathanmh.com/wordpress-plugin-append-link-on-copy/
 Tags: append link, copyright, js, javscript, add text to copy and paste, copy 'n paste, copy & paste
 Requires at least: 2.8
-Tested up to: 3.5
+Tested up to: 4.1
 Stable tag: 0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -50,6 +50,16 @@ Yes. Internet Explorer is not a browser.
 5. This shows the copied text in a plain text capable destination (MacVim)
 
 == Changelog ==
+
+= 0.2 =
+2015-1-15
+
+version bump, link replace string
+
+= 0.1.1 =
+2013-1-25
+
+* naming fix
 
 = 0.1 =
 2013-1-25
